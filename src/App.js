@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import {setHolydayData, setSchedule} from 'modules/holydayModule';
+
+// CSS
+import 'css/App.css';
+
+// Component
+import TitleContainer from 'containers/TitleContainer';
+import CalendarContainer from 'containers/CalendarContainer';
+
+
+const setHolyday = (dispatch) => {
+  axios.get('http://apiseop.site:9090/holyday').then((res) => {
+    dispatch(setHolydayData(res.data.response.body.items.item));
+  }).catch(err => {
+    console.log(err);
+  });
+};
 
 function App() {
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const dispatch = useDispatch();
+  const todayRef = useRef(null);
+  setHolyday(dispatch);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrapper'>
+      <TitleContainer month={month} setMonth={setMonth} todayRef={todayRef} />
+      <CalendarContainer month={month} year={2021} todayRef={todayRef} />
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);
