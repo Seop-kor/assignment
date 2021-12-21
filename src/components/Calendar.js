@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'css/Calendar.css';
 
 
-function Calendar({calendarSet, filterHolyday, filterSchedule, openModal, closeModal, enrollOnclick, dispatch}){
+function Calendar({calendarSet, filterHolyday, filterSchedule, openModal, closeModal, enrollOnclick, dispatch, dateFormat}){
   useEffect(() => {
     if(calendarSet.length > 0){
       filterHolyday.forEach(item => {
@@ -24,14 +24,10 @@ function Calendar({calendarSet, filterHolyday, filterSchedule, openModal, closeM
         `;
       });
     }
-    return console.log("Calendar Unmount");
   }, [filterHolyday, filterSchedule]);
 
   const modalRef = useRef(null);
   const inputRef = useRef(null);
-  const [dateFormat, setDateFormat] = useState('');
-
-  console.log("Calendar render");
 
   return (
     <>
@@ -51,7 +47,7 @@ function Calendar({calendarSet, filterHolyday, filterSchedule, openModal, closeM
         {calendarSet.map((item, index) => {
           return (<tr key={index}>
           {item.map(i => {
-            return <td key={Math.random() + i} onClick={(e) => {openModal(modalRef, setDateFormat, e)}} style={{
+            return <td key={Math.random() + i} onClick={(e) => {openModal(modalRef, e)}} style={{
               'cursor': 'pointer'
             }}>{i}</td>;
           })}

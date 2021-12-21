@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSchedule } from 'modules/holydayModule';
 
@@ -165,6 +165,7 @@ const getFormatDateFull = (date) => {
 
 function CalendarContainer({month, year, todayRef}){
   const calendarSet = setCalendarData(month, year, todayRef);
+  const [dateFormat, setDateFormat] = useState('');
   const { holyday, schedule } = useSelector(state => ({
     holyday: state.holyday.holyday,
     schedule: state.holyday.schedule
@@ -181,7 +182,7 @@ function CalendarContainer({month, year, todayRef}){
     }
   });
 
-  const openModal = (modalRef, setDateFormat, e) => {
+  const openModal = (modalRef, e) => {
     modalRef.current.style.display = "flex";
     const target = e.target;
     if(target.tagName === "TD"){
@@ -194,6 +195,7 @@ function CalendarContainer({month, year, todayRef}){
   
   const closeBtnOnclick = (modalRef) => {
     modalRef.current.style.display = "none";
+
   };
   
   const enrollOnclick = (dispatch, dateFormat, inputRef, modalRef) => {
@@ -210,10 +212,8 @@ function CalendarContainer({month, year, todayRef}){
     modalRef.current.style.display = "none";
   };
 
-  console.log("CalendarContainer render");
-
   return (
-    <Calendar calendarSet={calendarSet} filterHolyday={filterHolyday} openModal={openModal} closeModal={closeBtnOnclick} enrollOnclick={enrollOnclick} dispatch={dispatch} filterSchedule={filterSchedule} />
+    <Calendar calendarSet={calendarSet} filterHolyday={filterHolyday} openModal={openModal} closeModal={closeBtnOnclick} enrollOnclick={enrollOnclick} dispatch={dispatch} filterSchedule={filterSchedule} dateFormat={dateFormat} />
   );
 }
 
