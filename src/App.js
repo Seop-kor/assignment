@@ -12,7 +12,7 @@ import CalendarContainer from 'containers/CalendarContainer';
 
 
 const setHolyday = (dispatch) => {
-  axios.get('http://apiseop.site:9090/holyday').then((res) => {
+  axios.get('https://apiseop.site/holyday').then((res) => {
     dispatch(setHolydayData(res.data.response.body.items.item));
   }).catch(err => {
     console.log(err);
