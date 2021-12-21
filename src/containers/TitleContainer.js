@@ -1,13 +1,13 @@
 import React from 'react';
 import Title from 'components/Title';
 
-const getFormatDate = (date) => {
-  let year = date.getFullYear();
-  let month = (1 + date.getMonth());
-  month = month >= 10 ? month : '0' + month;
-  let day = date.getDate();
-  day = day >= 10 ? day : '0' + day;
-  return  year + '' + month + '' + day;
+const statePromise = (setMonth, n) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 200);
+    setMonth(n);
+  });
 };
 
 function TitleContainer({month, setMonth, todayRef}){
@@ -23,16 +23,28 @@ function TitleContainer({month, setMonth, todayRef}){
   };
   const todayOnclick = () => {
     const today = new Date();
-    setMonth(today.getMonth() + 1);
-    const formatToday = getFormatDate(today);
-    // console.log(document.getElementById(formatToday).children.item(0).children.item(0).children.item(0).className = "today");
-    setTimeout(() => {
-      todayRef.current.className = "today";
-    }, 200);
+    statePromise(setMonth, today.getMonth() + 1).then(n => {
+      if(n){
+        // todayRef.current.classList.add("today-animation");
+        todayRef.current.animate([
+          {
+            transform: 'scale(1)'
+          },
+          {
+            transform: 'scale(1.1)'
+          },
+          {
+            transform: 'scale(1)'
+          }
+        ], {
+          duration: 300
+        });
+      }
+    });
   };
   return (
     <Title month={month} ltOnclick={ltOnclick} gtOnclick={gtOnclick} todayOnclick={todayOnclick} />
   );
 }
 
-export default TitleContainer;
+export default React.memo(TitleContainer);

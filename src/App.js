@@ -1,7 +1,7 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import {setHolydayData, setSchedule} from 'modules/holydayModule';
+import { setHolydayData } from 'modules/holydayModule';
 
 // CSS
 import 'css/App.css';

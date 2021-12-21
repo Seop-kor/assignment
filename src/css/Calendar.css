@@ -20,7 +20,7 @@ tbody td:last-child { background-color: #e3e3e3; }
 .enrollday { background: rgb(120, 190, 236); border-radius: 5px; width: 100%; padding: 0px 5px; font-size: 12px; margin-bottom: 2px; } 
 .calendar-holyday-wrapper { height: 100%; } 
 .calendar-holyday-wrapper > span { display: flex; justify-content: flex-end; } 
-.calendar-holyday-wrapper .today { background-color: red; border-radius: 50%; color: white; opacity: 0.8; padding: 3px; } 
+.calendar-holyday-wrapper .today { background-color: red; border-radius: 50%; color: white; opacity: 0.8; padding: 3px; display:inline-block; width: fit-content; } 
 
 
 /* Modal Style CSS */
